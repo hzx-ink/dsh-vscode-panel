@@ -41,7 +41,7 @@
 
 ## 前提
 
-桌面版需要安装配套桥接插件 `dsh-vscode-panel-bridge`（本扩展的安装脚本会自动完成）。面板只连接 `127.0.0.1`，令牌保存在 `%USERPROFILE%\.dsh\vscode-panel\bridge.json`。
+桌面版需要配套桥接插件 `dsh-vscode-panel-bridge`：扩展已内置，用命令 `安装桥接插件到桌面版` 一键写入。面板只连接 `127.0.0.1`，令牌保存在 `%USERPROFILE%\.dsh\vscode-panel\bridge.json`。
 
 ## 设置
 
