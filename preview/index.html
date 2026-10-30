@@ -54,7 +54,7 @@
   fetch('state.json').then((r) => r.json()).then((state) => {
     if (params.get('offline') === '1') {
       state.connection = 'disconnected'
-      state.connectionDetail = '未找到桥接文件（C:\\Users\\86136\\.dsh\\vscode-panel\\bridge.json）'
+      state.connectionDetail = '未找到桥接文件（%USERPROFILE%\\.dsh\\vscode-panel\\bridge.json）'
       state.items = []
       state.sessions = []
     }

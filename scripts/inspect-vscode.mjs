@@ -19,7 +19,7 @@ const argOf = (name, fallback) => {
 const port = argOf('port', '9333')
 const out = join(root, argOf('out', 'preview/vscode-cdp.png'))
 
-const playwrightPath = argOf('playwright', 'C:/Users/86136/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules/playwright')
+const playwrightPath = argOf('playwright', process.env.PLAYWRIGHT_MODULE || 'playwright')
 const { chromium } = require(playwrightPath)
 
 const browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`)

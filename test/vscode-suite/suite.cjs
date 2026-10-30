@@ -13,8 +13,8 @@ const waitFor = async (predicate, timeoutMs, label) => {
 }
 
 exports.run = async function run() {
-  const extension = vscode.extensions.getExtension('dsh-panel.dsh-vscode-panel')
-  if (!extension) throw new Error('extension dsh-panel.dsh-vscode-panel is not installed in the test host')
+  const extension = vscode.extensions.getExtension('hzx-ink.dsh-vscode-panel')
+  if (!extension) throw new Error('extension hzx-ink.dsh-vscode-panel is not installed in the test host')
 
   const api = await extension.activate()
   console.log(`[suite] activated v${api?.version}`)

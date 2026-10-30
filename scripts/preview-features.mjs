@@ -17,7 +17,7 @@ const argOf = (name, fallback) => {
   return index === -1 ? fallback : args[index + 1]
 }
 
-const playwrightPath = argOf('playwright', 'C:/Users/86136/AppData/Local/npm-cache/_npx/e41f203b7505f1fb/node_modules/playwright')
+const playwrightPath = argOf('playwright', process.env.PLAYWRIGHT_MODULE || 'playwright')
 const { chromium } = require(playwrightPath)
 
 function crc32(buffer) {

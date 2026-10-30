@@ -8,8 +8,8 @@ const vscode = require('vscode')
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
 
 exports.run = async function run() {
-  const extension = vscode.extensions.getExtension('dsh-panel.dsh-vscode-panel')
-  if (!extension) throw new Error('extension dsh-panel.dsh-vscode-panel is not installed')
+  const extension = vscode.extensions.getExtension('hzx-ink.dsh-vscode-panel')
+  if (!extension) throw new Error('extension hzx-ink.dsh-vscode-panel is not installed')
   await extension.activate()
 
   const commands = await vscode.commands.getCommands(true)

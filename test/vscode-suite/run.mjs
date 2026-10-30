@@ -21,7 +21,7 @@ delete process.env.ELECTRON_RUN_AS_NODE
 
 const candidates = [
   process.env.VSCODE_EXE,
-  'C:\\Users\\86136\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe',
+  process.env.LOCALAPPDATA && join(process.env.LOCALAPPDATA, 'Programs', 'Microsoft VS Code', 'Code.exe'),
   'C:\\Program Files\\Microsoft VS Code\\Code.exe',
 ].filter(Boolean)
 const vscodeExecutablePath = candidates.find((path) => existsSync(path))
