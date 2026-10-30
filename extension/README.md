@@ -14,9 +14,13 @@
 
 ## 开始使用
 
-1. 启动桌面版 DeepSeek Harness。
-2. 展开 VS Code 右侧栏（辅助侧边栏），点顶部图标条里的 DeepSeek Harness 图标。
-3. 右侧栏收起时，`Ctrl+Alt+D` 会自动展开并聚焦面板。
+1. 电脑上已安装并运行**桌面版 DeepSeek Harness**。
+2. 首次使用：命令面板（`Ctrl+Shift+P`）执行 **`DeepSeek Harness: 安装桥接插件到桌面版`**
+   ——桥接插件已内置在扩展里，点「安装」即可写入桌面版 profile，然后重启桌面版。
+3. 展开 VS Code 右侧栏（辅助侧边栏），点顶部图标条里的 DeepSeek Harness 图标。
+4. 右侧栏收起时，`Ctrl+Alt+D` 会自动展开并聚焦面板。
+
+> 只有本扩展、没有桌面版时无法工作：面板不内置模型，全部回答由你电脑上的桌面版生成。
 
 ## 命令
 
