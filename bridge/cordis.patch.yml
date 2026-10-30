@@ -1,0 +1,9 @@
+# Bundle layer for the VS Code panel bridge.
+#
+# `dsh plugin --profile desktop add <this package>` appends this package to the
+# profile's `dsh.profile.bundles`, which applies this patch after the shipped
+# bundles. The row is inserted last, so the Session Controller service it
+# injects is already mounted.
+- insert:
+    - id: vscode-panel-bridge
+      name: dsh-vscode-panel-bridge

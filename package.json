@@ -1,0 +1,21 @@
+{
+  "name": "dsh-vscode-panel-workspace",
+  "private": true,
+  "version": "0.1.0",
+  "description": "VS Code panel for a running DeepSeek Harness Desktop (bridge plugin + extension)",
+  "scripts": {
+    "build": "npm --prefix extension run build",
+    "typecheck": "npm --prefix extension run typecheck",
+    "test:bridge": "node scripts/bridge-smoke.mjs",
+    "test:harness": "node scripts/prepare-test-bundles.mjs && node test/harness.mjs",
+    "test:vscode": "node test/vscode-suite/run.mjs",
+    "preview:build": "node scripts/prepare-test-bundles.mjs && node scripts/build-preview.mjs",
+    "preview": "node scripts/preview-server.cjs",
+    "bundle:bridge": "node scripts/bundle-bridge.mjs",
+    "vsix": "node scripts/bundle-bridge.mjs && node scripts/make-icon.mjs && cd extension && npx tsc -p tsconfig.json --noEmit && node esbuild.mjs && npx --yes @vscode/vsce package --no-dependencies --allow-missing-repository",
+    "publish": "powershell -ExecutionPolicy Bypass -File scripts/publish.ps1"
+  },
+  "devDependencies": {
+    "@vscode/test-electron": "^2.4.1"
+  }
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>DSH panel preview</title>
+<style>
+  /* VS Code Dark Modern approximation for visual review only. */
+  :root {
+    --vscode-foreground: #cccccc;
+    --vscode-descriptionForeground: #9d9d9d;
+    --vscode-sideBar-background: #181818;
+    --vscode-editor-background: #1f1f1f;
+    --vscode-panel-border: #2b2b2b;
+    --vscode-button-background: #0078d4;
+    --vscode-button-foreground: #ffffff;
+    --vscode-list-hoverBackground: #2a2d2e;
+    --vscode-list-activeSelectionBackground: #04395e;
+    --vscode-input-background: #313131;
+    --vscode-input-border: #3c3c3c;
+    --vscode-textCodeBlock-background: #262626;
+    --vscode-textLink-foreground: #4daafc;
+    --vscode-errorForeground: #f85149;
+    --vscode-editorWarning-foreground: #cca700;
+    --vscode-focusBorder: #0078d4;
+    --vscode-editorWidget-background: #202020;
+    --vscode-menu-background: #1f1f1f;
+    --vscode-menu-border: #454545;
+    --vscode-font-family: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+    --vscode-font-size: 13px;
+    --vscode-editor-font-family: "Cascadia Code", Consolas, monospace;
+    --vscode-testing-iconPassed: #3fb950;
+    --vscode-scrollbarSlider-background: rgba(121, 121, 121, 0.4);
+  }
+  body { background: var(--vscode-sideBar-background); }
+  #app { width: 100%; height: 100vh; }
+</style>
+<link rel="stylesheet" href="../extension/media/main.css" />
+</head>
+<body>
+<div id="app"></div>
+<script>
+  window.__posted = []
+  window.acquireVsCodeApi = function () {
+    return {
+      postMessage: function (message) { window.__posted.push(message) },
+      getState: function () { return {} },
+      setState: function () {},
+    }
+  }
+</script>
+<script src="../extension/media/main.js"></script>
+<script>
+  const params = new URLSearchParams(location.search)
+  fetch('state.json').then((r) => r.json()).then((state) => {
+    if (params.get('offline') === '1') {
+      state.connection = 'disconnected'
+      state.connectionDetail = '未找到桥接文件（C:\\Users\\86136\\.dsh\\vscode-panel\\bridge.json）'
+      state.items = []
+      state.sessions = []
+    }
+    if (params.get('empty') === '1') {
+      state.items = []
+      state.sessionId = null
+      state.sessionTitle = ''
+      state.hasMore = false
+    }
+    if (params.get('long') === '1') {
+      state.items = state.items.concat([
+        { id: 'a:900', kind: 'assistant', time: Date.now(), model: 'workbuddy/deepseek-v4.1-flash', interrupted: false,
+          reasoning: '先看 package.json 的 name，再确认 publisher 是否一致。',
+          text: '结论：\n\n1. `name` 是 **dsh-vscode-panel**\n2. `publisher` 是 `dsh-panel`\n\n> 这两项决定了 VSIX 的标识，改名需要重新安装扩展。\n\n```json\n{\n  "name": "dsh-vscode-panel",\n  "publisher": "dsh-panel"\n}\n```\n\n另外，[VS Code 扩展清单](https://code.visualstudio.com/api/references/extension-manifest) 里 `engines.vscode` 也要跟着升级。' },
+      ])
+    }
+    window.postMessage({ type: 'state', state }, '*')
+    if (params.get('drawer') === '1') setTimeout(() => window.postMessage({ type: 'showSessions' }, '*'), 60)
+    if (params.get('model') === '1') setTimeout(() => document.getElementById('model-btn').click(), 60)
+    if (params.get('live') === '1') {
+      setTimeout(() => {
+        window.postMessage({
+          type: 'live',
+          live: {
+            turn: 1,
+            step: 2,
+            reasoning: '还需要确认 publisher 字段。',
+            text: '已读取 `package.json`，接下来我会检查 **publisher** 与 `engines.vscode` 是否匹配。\n\n```json\n{\n  "publisher": "dsh-panel",\n  "engines": { "vscode": "^1.90.0" }\n}\n```\n\n正在核对版本约束',
+          },
+        }, '*')
+      }, 120)
+    }
+    if (params.get('toast') === '1') setTimeout(() => window.postMessage({ type: 'toast', level: 'error', message: '会话连接中断：事件流已结束' }, '*'), 160)
+  })
+</script>
+</body>
+</html>

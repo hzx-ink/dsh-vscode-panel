@@ -1,0 +1,12 @@
+node_modules/
+.tmp/
+.test-home/
+.desktop-check/
+.vscode-test/
+extension/dist/
+extension/*.vsix
+extension/resources/*.tgz
+bridge/*.tgz
+preview/state.json
+*.log
+.visual-*.log

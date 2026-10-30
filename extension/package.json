@@ -1,0 +1,250 @@
+{
+  "name": "dsh-vscode-panel",
+  "displayName": "DeepSeek Harness",
+  "description": "在 VS Code 侧边栏直接使用桌面版 DeepSeek Harness：同一批会话、同一批模型，代码选区一键带入。",
+  "version": "1.0.0",
+  "publisher": "hzx-ink",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "AI",
+    "Chat",
+    "Other"
+  ],
+  "keywords": [
+    "deepseek",
+    "deepseek-harness",
+    "dsh",
+    "chat",
+    "ai"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [
+    "onView:dsh.chat",
+    "onCommand:dsh.focusChat",
+    "onCommand:dsh.addSelectionToChat",
+    "onCommand:dsh.addFileToChat",
+    "onCommand:dsh.newChat",
+    "onCommand:dsh.installBridge"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "secondarySidebar": [
+        {
+          "id": "dshPanel",
+          "title": "DeepSeek Harness",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "dshPanel": [
+        {
+          "id": "dsh.chat",
+          "name": "会话",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "dsh.focusChat",
+        "title": "打开对话面板",
+        "category": "DeepSeek Harness",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "dsh.addSelectionToChat",
+        "title": "将选中代码加入对话",
+        "category": "DeepSeek Harness",
+        "icon": "$(add)"
+      },
+      {
+        "command": "dsh.addFileToChat",
+        "title": "将当前文件加入对话",
+        "category": "DeepSeek Harness",
+        "icon": "$(file-add)"
+      },
+      {
+        "command": "dsh.newChat",
+        "title": "新建会话",
+        "category": "DeepSeek Harness",
+        "icon": "$(add)"
+      },
+      {
+        "command": "dsh.showSessions",
+        "title": "历史会话",
+        "category": "DeepSeek Harness",
+        "icon": "$(history)"
+      },
+      {
+        "command": "dsh.pickModel",
+        "title": "选择模型",
+        "category": "DeepSeek Harness",
+        "icon": "$(chip)"
+      },
+      {
+        "command": "dsh.refresh",
+        "title": "刷新连接与会话",
+        "category": "DeepSeek Harness",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "dsh.movePanel",
+        "title": "移动面板位置…",
+        "category": "DeepSeek Harness"
+      },
+      {
+        "command": "dsh.launchDesktop",
+        "title": "启动 DeepSeek Harness 桌面版",
+        "category": "DeepSeek Harness"
+      },
+      {
+        "command": "dsh.showLog",
+        "title": "显示日志",
+        "category": "DeepSeek Harness",
+        "icon": "$(output)"
+      },
+      {
+        "command": "dsh.showKeybindings",
+        "title": "查看「加入对话」的快捷键绑定",
+        "category": "DeepSeek Harness"
+      },
+      {
+        "command": "dsh.installBridge",
+        "title": "安装桥接插件到桌面版",
+        "category": "DeepSeek Harness",
+        "icon": "$(plug)"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "dsh.addSelectionToChat",
+          "when": "editorHasSelection",
+          "group": "1_modification@100"
+        },
+        {
+          "command": "dsh.addFileToChat",
+          "group": "1_modification@101"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "dsh.newChat",
+          "when": "view == dsh.chat",
+          "group": "navigation@1"
+        },
+        {
+          "command": "dsh.showSessions",
+          "when": "view == dsh.chat",
+          "group": "navigation@2"
+        },
+        {
+          "command": "dsh.refresh",
+          "when": "view == dsh.chat",
+          "group": "navigation@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "dsh.addSelectionToChat",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "dsh.showLog"
+        },
+        {
+          "command": "dsh.showKeybindings"
+        },
+        {
+          "command": "dsh.installBridge"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "dsh.addSelectionToChat",
+          "when": "editorHasSelection",
+          "group": "navigation@9"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "dsh.addSelectionToChat",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "dsh.focusChat",
+        "key": "ctrl+alt+d",
+        "mac": "cmd+alt+d"
+      }
+    ],
+    "configuration": {
+      "title": "DeepSeek Harness",
+      "properties": {
+        "dsh.bridgeFile": {
+          "type": "string",
+          "default": "",
+          "description": "桥接描述文件 bridge.json 的路径。留空则使用 %USERPROFILE%\\.dsh\\vscode-panel\\bridge.json。"
+        },
+        "dsh.home": {
+          "type": "string",
+          "default": "",
+          "description": "DeepSeek Harness 的 DSH_HOME。留空则使用环境变量 DSH_HOME 或 %USERPROFILE%\\.dsh。"
+        },
+        "dsh.desktopPath": {
+          "type": "string",
+          "default": "",
+          "description": "DeepSeek Harness 桌面版可执行文件路径。留空时自动探测 D:\\dsh\\DeepSeek Harness.exe 等常见位置。"
+        },
+        "dsh.showAllWorkspaces": {
+          "type": "boolean",
+          "default": false,
+          "description": "历史会话列表默认是否显示所有工作区的会话。"
+        },
+        "dsh.maxContextLines": {
+          "type": "number",
+          "default": 400,
+          "description": "单次加入对话的代码最大行数，超出时截断。"
+        },
+        "dsh.contextFormat": {
+          "type": "string",
+          "enum": [
+            "fenced",
+            "plain"
+          ],
+          "default": "fenced",
+          "description": "代码引用在提示词中的形式：fenced 使用带语言标记的代码块，plain 使用纯文本。"
+        },
+        "dsh.profile": {
+          "type": "string",
+          "default": "desktop",
+          "description": "桌面版使用的 DSH profile 名称，安装桥接插件时写入该 profile。"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "vsix": "node ../scripts/bundle-bridge.mjs && node esbuild.mjs && vsce package --no-dependencies --allow-missing-repository",
+    "bundle:bridge": "node ../scripts/bundle-bridge.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.90.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.0"
+  },
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#1f2937",
+    "theme": "dark"
+  }
+}
